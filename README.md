@@ -31,6 +31,7 @@ honestly, this is kind of sketchy and there's probably a better way to do this b
 - `SPOTIFY_APP_ID`: spotify app client ID
 - `SPOTIFY_APP_SECRET`: spotify app client secret
 - `BANDCAMP_TOKEN`: the bandcamp auth token you ripped from the network tab
+- `BANDCAMP_USERNAME`: your bandcamp username
 
 ### some basic commands
 ```bash

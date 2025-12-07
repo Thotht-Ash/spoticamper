@@ -44,7 +44,7 @@ def get_spotify_playlist(token, id):
 
 def get_bandcamp_purchases():
     res = requests.get(
-            url="https://bandcamp.com/zoefiri",
+            url=f"https://bandcamp.com/{os.environ["BANDCAMP_USERNAME"]}",
             headers={"Cookie": f"identity={os.environ["BANDCAMP_TOKEN"]}"}
     )
     soup = bs(res.content, "html.parser")
