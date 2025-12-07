@@ -45,4 +45,5 @@ honestly, this is kind of sketchy and there's probably a better way to do this b
 ./spoticamper.py -s
 
 # refresh purchased tracks from bandcamp collection
+./spoticamper.py -r
 ```
