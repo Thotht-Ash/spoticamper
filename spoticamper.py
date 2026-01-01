@@ -28,7 +28,7 @@ def search_bandcamp_album_url(artist, album):
         return ""
 
 def get_spotify_auth_token():
-    basic_token = base64.b64encode(f"{os.environ["SPOTIFY_APP_ID"]}:{os.environ["SPOTIFY_APP_SECRET"]}".encode()).decode()
+    basic_token = base64.b64encode(f"{os.environ['SPOTIFY_APP_ID']}:{os.environ['SPOTIFY_APP_SECRET']}".encode()).decode()
     return requests.post(
         url="https://accounts.spotify.com/api/token",
         headers={"Authorization": f"Basic {basic_token}"},
@@ -44,14 +44,15 @@ def get_spotify_playlist(token, id):
 
 def get_bandcamp_purchases():
     res = requests.get(
-            url=f"https://bandcamp.com/{os.environ["BANDCAMP_USERNAME"]}",
-            headers={"Cookie": f"identity={os.environ["BANDCAMP_TOKEN"]}"}
+            url=f"https://bandcamp.com/{os.environ['BANDCAMP_USERNAME']}",
+            headers={"Cookie": f"identity={os.environ['BANDCAMP_TOKEN']}"}
     )
     soup = bs(res.content, "html.parser")
 
     links = []
     for item in soup.select(".item-link"):
-        links.append(item["href"])
+        if "href" in item.attrs.keys():
+            links.append(item["href"])
     return links
 
 
@@ -101,7 +102,7 @@ def pull_spotify_playlist(state, cli_args):
     registered_album_count = 0
     for track in playlist:
         album = track["track"]["album"]
-        album_key = f"{album["name"]}:{album["id"]}"
+        album_key = f"{album['name']}:{album['id']}"
 
         if not album_key in state["albums"]:
             artists = []
@@ -114,7 +115,7 @@ def pull_spotify_playlist(state, cli_args):
                     "name": album["name"],
                     "artists": artists,
                     "purchased": False,
-                    "bandcamp_search_term": f"{artists[0]} {album["name"]}",
+                    "bandcamp_search_term": f"{artists[0]} {album['name']}",
                     "bandcamp_url_found": False,
                     "bandcamp_url_searched": False,
                     "bandcamp_url": ""
