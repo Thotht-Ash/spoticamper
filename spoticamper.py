@@ -2,6 +2,7 @@
 
 from bs4 import BeautifulSoup as bs
 from ratelimit import limits, sleep_and_retry
+from dotenv import load_dotenv, dotenv_values
 from tqdm import tqdm
 import requests
 import re
@@ -182,6 +183,8 @@ def print_stats(state):
 
 # load state
 state = load_state()
+
+load_dotenv()
 
 # get CLI args
 cli_args = get_cli_args()
